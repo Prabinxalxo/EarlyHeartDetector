@@ -114,46 +114,226 @@ function displayResults() {
 
 // Generate PDF report
 function generatePDF() {
-    const resultsContainer = document.getElementById('results-container').cloneNode(true);
-    
     // Create a styled container for the PDF
     const pdfContainer = document.createElement('div');
-    pdfContainer.style.padding = '20px';
+    pdfContainer.style.padding = '15px';
     pdfContainer.style.maxWidth = '800px';
     pdfContainer.style.margin = '0 auto';
+    pdfContainer.style.fontFamily = 'Arial, sans-serif';
+    pdfContainer.style.fontSize = '12px';
     
-    // Add title
+    // Add title and header in a compact format
+    const header = document.createElement('div');
+    header.style.display = 'flex';
+    header.style.justifyContent = 'space-between';
+    header.style.alignItems = 'center';
+    header.style.marginBottom = '10px';
+    
     const title = document.createElement('h1');
     title.textContent = 'Heart Health Assessment Report';
-    title.style.textAlign = 'center';
+    title.style.textAlign = 'left';
     title.style.color = '#333';
-    title.style.marginBottom = '20px';
-    pdfContainer.appendChild(title);
+    title.style.margin = '0';
+    title.style.fontSize = '18px';
+    header.appendChild(title);
     
-    // Add date
     const date = document.createElement('p');
     const today = new Date();
     date.textContent = `Date: ${today.toLocaleDateString()}`;
-    date.style.marginBottom = '20px';
-    pdfContainer.appendChild(date);
+    date.style.margin = '0';
+    date.style.fontSize = '12px';
+    header.appendChild(date);
     
-    // Add content
-    pdfContainer.appendChild(resultsContainer);
+    pdfContainer.appendChild(header);
     
-    // Add disclaimer
+    // Create a divider
+    const divider = document.createElement('hr');
+    divider.style.margin = '10px 0';
+    divider.style.border = '0.5px solid #ddd';
+    pdfContainer.appendChild(divider);
+    
+    // Create a two-column layout for patient info and result
+    const infoSection = document.createElement('div');
+    infoSection.style.display = 'flex';
+    infoSection.style.justifyContent = 'space-between';
+    infoSection.style.marginBottom = '15px';
+    
+    // Patient information column
+    const patientInfo = document.createElement('div');
+    patientInfo.style.width = '48%';
+    
+    const patientTitle = document.createElement('h2');
+    patientTitle.textContent = 'Patient Information';
+    patientTitle.style.fontSize = '14px';
+    patientTitle.style.margin = '0 0 8px 0';
+    patientInfo.appendChild(patientTitle);
+    
+    const infoTable = document.createElement('table');
+    infoTable.style.width = '100%';
+    infoTable.style.borderCollapse = 'collapse';
+    infoTable.style.fontSize = '11px';
+    
+    // Add rows for patient data
+    const infoRows = [
+        { label: 'Name', value: userData.name },
+        { label: 'Age', value: userData.age },
+        { label: 'Sex', value: userData.sex === 'male' ? 'Male' : 'Female' },
+        { label: 'Blood Pressure', value: `${userData.bloodPressure} mm Hg` },
+        { label: 'Cholesterol', value: `${userData.cholesterol} mg/dL` },
+        { label: 'Chest Pain Type', value: `${userData.chestPain} (${['No pain', 'Mild pain', 'Moderate pain', 'Severe pain'][userData.chestPain]})` }
+    ];
+    
+    infoRows.forEach(row => {
+        const tr = document.createElement('tr');
+        
+        const tdLabel = document.createElement('td');
+        tdLabel.textContent = row.label + ':';
+        tdLabel.style.fontWeight = 'bold';
+        tdLabel.style.padding = '3px 0';
+        tr.appendChild(tdLabel);
+        
+        const tdValue = document.createElement('td');
+        tdValue.textContent = row.value;
+        tdValue.style.padding = '3px 0';
+        tr.appendChild(tdValue);
+        
+        infoTable.appendChild(tr);
+    });
+    
+    patientInfo.appendChild(infoTable);
+    infoSection.appendChild(patientInfo);
+    
+    // Result column
+    const resultInfo = document.createElement('div');
+    resultInfo.style.width = '48%';
+    resultInfo.style.display = 'flex';
+    resultInfo.style.flexDirection = 'column';
+    resultInfo.style.alignItems = 'center';
+    resultInfo.style.justifyContent = 'center';
+    
+    const resultTitle = document.createElement('h2');
+    resultTitle.textContent = 'Assessment Result';
+    resultTitle.style.fontSize = '14px';
+    resultTitle.style.margin = '0 0 10px 0';
+    resultTitle.style.alignSelf = 'flex-start';
+    resultInfo.appendChild(resultTitle);
+    
+    const resultBox = document.createElement('div');
+    resultBox.style.padding = '15px';
+    resultBox.style.borderRadius = '5px';
+    resultBox.style.textAlign = 'center';
+    resultBox.style.width = '100%';
+    resultBox.style.fontWeight = 'bold';
+    resultBox.style.fontSize = '14px';
+    
+    if (predictionResult) {
+        resultBox.textContent = 'Heart Disease Detected';
+        resultBox.style.backgroundColor = 'rgba(255, 99, 71, 0.2)';
+        resultBox.style.color = '#D32F2F';
+    } else {
+        resultBox.textContent = 'No Heart Disease Detected';
+        resultBox.style.backgroundColor = 'rgba(46, 204, 113, 0.2)';
+        resultBox.style.color = '#388E3C';
+    }
+    
+    resultInfo.appendChild(resultBox);
+    infoSection.appendChild(resultInfo);
+    pdfContainer.appendChild(infoSection);
+    
+    // Add diet recommendations with food images
+    const dietSection = document.createElement('div');
+    dietSection.style.marginTop = '10px';
+    
+    const dietTitle = document.createElement('h2');
+    dietTitle.textContent = 'Diet Recommendations';
+    dietTitle.style.fontSize = '14px';
+    dietTitle.style.margin = '0 0 10px 0';
+    dietSection.appendChild(dietTitle);
+    
+    // Create a two-column layout for diet info and images
+    const dietContent = document.createElement('div');
+    dietContent.style.display = 'flex';
+    dietContent.style.justifyContent = 'space-between';
+    
+    // Diet text column
+    const dietText = document.createElement('div');
+    dietText.style.width = '60%';
+    
+    // Only display 3-4 key categories to keep it on one page
+    const categories = Object.keys(dietRecommendations);
+    const priorityCategories = categories.slice(0, 4);
+    
+    priorityCategories.forEach(category => {
+        const catTitle = document.createElement('h3');
+        catTitle.textContent = category;
+        catTitle.style.fontSize = '12px';
+        catTitle.style.margin = '5px 0';
+        catTitle.style.color = '#333';
+        dietText.appendChild(catTitle);
+        
+        const list = document.createElement('ul');
+        list.style.margin = '0 0 8px 0';
+        list.style.paddingLeft = '18px';
+        
+        // Only show first 2-3 items from each category to keep report compact
+        const items = dietRecommendations[category].slice(0, 2);
+        
+        items.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.textContent = item;
+            listItem.style.fontSize = '10px';
+            listItem.style.margin = '3px 0';
+            list.appendChild(listItem);
+        });
+        
+        dietText.appendChild(list);
+    });
+    
+    dietContent.appendChild(dietText);
+    
+    // Diet images column
+    const dietImages = document.createElement('div');
+    dietImages.style.width = '38%';
+    dietImages.style.display = 'flex';
+    dietImages.style.flexDirection = 'column';
+    dietImages.style.alignItems = 'center';
+    dietImages.style.gap = '10px';
+    
+    // Add food images based on heart disease status
+    const healthyFoodsImg = document.createElement('img');
+    healthyFoodsImg.src = '/img/foods/heart_healthy_foods.svg';
+    healthyFoodsImg.style.width = '100%';
+    healthyFoodsImg.style.maxHeight = '80px';
+    dietImages.appendChild(healthyFoodsImg);
+    
+    if (predictionResult) {
+        // Add "foods to avoid" image for heart disease patients
+        const avoidFoodsImg = document.createElement('img');
+        avoidFoodsImg.src = '/img/foods/foods_to_avoid.svg';
+        avoidFoodsImg.style.width = '100%';
+        avoidFoodsImg.style.maxHeight = '80px';
+        dietImages.appendChild(avoidFoodsImg);
+    }
+    
+    dietContent.appendChild(dietImages);
+    dietSection.appendChild(dietContent);
+    pdfContainer.appendChild(dietSection);
+    
+    // Add disclaimer at bottom
     const disclaimer = document.createElement('p');
     disclaimer.textContent = 'Disclaimer: This assessment is based on limited information and is not a medical diagnosis. Please consult with a healthcare professional for proper medical advice and treatment.';
-    disclaimer.style.fontSize = '12px';
+    disclaimer.style.fontSize = '9px';
     disclaimer.style.color = '#777';
-    disclaimer.style.marginTop = '30px';
+    disclaimer.style.marginTop = '15px';
+    disclaimer.style.fontStyle = 'italic';
     pdfContainer.appendChild(disclaimer);
     
-    // Generate PDF
+    // Generate PDF with specific page size to ensure one page
     const opt = {
-        margin: 10,
+        margin: [10, 10, 10, 10], // top, right, bottom, left
         filename: `heart_health_report_${userData.name.replace(/\s+/g, '_')}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
     
