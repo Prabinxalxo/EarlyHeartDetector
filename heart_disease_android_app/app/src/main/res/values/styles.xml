@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
+
+    <!-- Red background for positive heart disease result -->
+    <style name="RedBackground">
+        <item name="android:background">@drawable/red_background</item>
+    </style>
+
+    <!-- Green background for negative heart disease result -->
+    <style name="GreenBackground">
+        <item name="android:background">@drawable/green_background</item>
+    </style>
+</resources>

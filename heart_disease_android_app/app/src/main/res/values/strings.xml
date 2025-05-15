@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Heart Disease Prediction</string>
+    
+    <!-- Main Activity Strings -->
+    <string name="welcome_title">Welcome to Early Heart Attack Prediction</string>
+    <string name="welcome_message">This application helps you assess your risk of heart disease and provides personalized recommendations to improve your heart health. Simply fill out the form below to get your personalized assessment.</string>
+    <string name="heart_health_tips">Heart Health Tips</string>
+    <string name="tip_diet_title">Eat a balanced diet</string>
+    <string name="tip_diet_desc">Include plenty of fruits, vegetables, and whole grains.</string>
+    <string name="tip_exercise_title">Stay active</string>
+    <string name="tip_exercise_desc">Aim for at least 150 minutes of moderate exercise weekly.</string>
+    <string name="tip_sleep_title">Get enough sleep</string>
+    <string name="tip_sleep_desc">7-9 hours of quality sleep supports heart health.</string>
+    
+    <!-- Form Labels -->
+    <string name="form_title">Heart Disease Risk Assessment</string>
+    <string name="form_subtitle">Please provide your information to receive a personalized assessment.</string>
+    <string name="name_label">Name</string>
+    <string name="age_label">Age</string>
+    <string name="sex_label">Sex</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="bp_label">Blood Pressure (mm Hg)</string>
+    <string name="cholesterol_label">Cholesterol (mg/dL)</string>
+    <string name="chest_pain_label">Chest Pain Type</string>
+    <string name="submit_button">Get Results</string>
+    
+    <!-- Results Activity Strings -->
+    <string name="results_title">Assessment Results</string>
+    <string name="personal_info_title">Personal Information</string>
+    <string name="heart_assessment_title">Heart Disease Assessment</string>
+    <string name="result_positive">Heart disease detected</string>
+    <string name="result_negative">No heart disease detected</string>
+    <string name="diet_recommendations_title">Recommended Diet Plan</string>
+    <string name="download_report">Download Report</string>
+    <string name="start_over">Start Over</string>
+    
+    <!-- Chest Pain Types Array -->
+    <string-array name="chest_pain_types">
+        <item>0 - No pain</item>
+        <item>1 - Mild pain</item>
+        <item>2 - Moderate pain</item>
+        <item>3 - Severe pain</item>
+    </string-array>
+</resources>
