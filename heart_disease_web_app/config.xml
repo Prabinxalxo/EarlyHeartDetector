@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.heartdisease.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Heart Disease Prediction</name>
+    <description>
+        A mobile application for predicting heart disease risk and providing personalized diet recommendations.
+    </description>
+    <author email="info@heartdiseaseapp.com" href="https://heartdiseaseapp.com">
+        Heart Disease App Team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+        <icon density="ldpi" src="img/icon-36x36.png" />
+        <icon density="mdpi" src="img/icon-48x48.png" />
+        <icon density="hdpi" src="img/icon-72x72.png" />
+        <icon density="xhdpi" src="img/icon-96x96.png" />
+        <icon density="xxhdpi" src="img/icon-144x144.png" />
+        <icon density="xxxhdpi" src="img/icon-192x192.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="img/icon-512x512.png" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <preference name="Orientation" value="portrait" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="BackgroundColor" value="#F0F8FF" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#FF4B4B" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+</widget>

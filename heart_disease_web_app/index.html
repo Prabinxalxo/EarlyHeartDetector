@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF4B4B">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Home Page -->
+        <div id="home-page" class="page active">
+            <header>
+                <div class="logo">
+                    <svg class="heart-icon" viewBox="0 0 24 24">
+                        <path fill="#FF4B4B" d="M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z"/>
+                    </svg>
+                </div>
+                <h1>Heart Health Check</h1>
+            </header>
+            
+            <div class="content">
+                <div class="main-content">
+                    <h2>Welcome to Early Heart Attack Prediction</h2>
+                    <p>This application helps you assess your risk of heart disease and provides personalized recommendations to improve your heart health.</p>
+                    <p>Simply fill out the form to get your personalized assessment.</p>
+                    
+                    <button class="primary-button" onclick="navigateTo('assessment-page')">Start Assessment</button>
+                </div>
+                
+                <div class="heart-image">
+                    <svg viewBox="0 0 24 24" width="100%" height="200">
+                        <path fill="#FF4B4B" d="M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z"/>
+                        <circle fill="#FFA0A0" cx="12" cy="12" r="4"/>
+                        <path stroke="#C83737" stroke-width="0.5" fill="none" d="M4,12 L7,12 L9,7 L11,16 L13,10 L15,12 L17,12 L19,12"/>
+                    </svg>
+                </div>
+                
+                <div class="tips-section">
+                    <h3>Heart Health Tips</h3>
+                    
+                    <div class="tip-card">
+                        <div class="tip-emoji">🥗</div>
+                        <div class="tip-content">
+                            <h4>Eat a balanced diet</h4>
+                            <p>Include plenty of fruits, vegetables, and whole grains.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-emoji">🏃</div>
+                        <div class="tip-content">
+                            <h4>Stay active</h4>
+                            <p>Aim for at least 150 minutes of moderate exercise weekly.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-emoji">😴</div>
+                        <div class="tip-content">
+                            <h4>Get enough sleep</h4>
+                            <p>7-9 hours of quality sleep supports heart health.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Assessment Page -->
+        <div id="assessment-page" class="page">
+            <header>
+                <button class="back-button" onclick="navigateTo('home-page')">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="#333" d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+                    </svg>
+                </button>
+                <h1>Heart Disease Risk Assessment</h1>
+            </header>
+            
+            <div class="content">
+                <p class="form-intro">Please provide your information to receive a personalized assessment.</p>
+                
+                <form id="assessment-form" onsubmit="submitAssessment(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" min="1" max="120" value="40" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Sex</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="sex" value="male" checked>
+                                    Male
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="sex" value="female">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="blood-pressure">Blood Pressure (mm Hg)</label>
+                            <input type="number" id="blood-pressure" name="bloodPressure" min="70" max="250" value="120" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cholesterol">Cholesterol (mg/dL)</label>
+                            <input type="number" id="cholesterol" name="cholesterol" min="100" max="600" value="200" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="chest-pain">Chest Pain Type</label>
+                        <select id="chest-pain" name="chestPain" required>
+                            <option value="0">0 - No pain</option>
+                            <option value="1">1 - Mild pain</option>
+                            <option value="2">2 - Moderate pain</option>
+                            <option value="3">3 - Severe pain</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="primary-button">Get Results</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Results Page -->
+        <div id="results-page" class="page">
+            <header>
+                <button class="back-button" onclick="navigateTo('assessment-page')">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="#333" d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+                    </svg>
+                </button>
+                <h1>Assessment Results</h1>
+            </header>
+            
+            <div class="content">
+                <div id="results-container" class="results-container">
+                    <h3>Personal Information</h3>
+                    <div class="results-info">
+                        <div class="info-row">
+                            <span class="info-label">Name:</span>
+                            <span id="result-name" class="info-value"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Age:</span>
+                            <span id="result-age" class="info-value"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Sex:</span>
+                            <span id="result-sex" class="info-value"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Blood Pressure:</span>
+                            <span id="result-bp" class="info-value"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Cholesterol:</span>
+                            <span id="result-cholesterol" class="info-value"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Chest Pain Type:</span>
+                            <span id="result-chest-pain" class="info-value"></span>
+                        </div>
+                    </div>
+                    
+                    <h3>Heart Disease Assessment</h3>
+                    <div id="result-prediction" class="prediction-result"></div>
+                    
+                    <h3>Recommended Diet Plan</h3>
+                    <div id="diet-recommendations" class="diet-recommendations"></div>
+                </div>
+                
+                <button id="download-report" class="primary-button" onclick="generatePDF()">Download Report</button>
+                <button class="secondary-button" onclick="navigateTo('home-page')">Start Over</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="js/prediction.js"></script>
+    <script src="js/diet.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
